@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | AutocompleteOnline</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #F0F4F8;
+            --bg-white: #FFFFFF;
+            --text-dark: #1A202C;
+            --text-body: #4A5568;
+            --text-muted: #718096;
+            --accent-blue: #4A90D9;
+            --accent-blue-hover: #3A7BC8;
+            --accent-blue-light: #EBF2FC;
+            --accent-green: #48BB78;
+            --accent-green-light: #E6F7EE;
+            --border-light: #E2E8F0;
+            --card-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04);
+            --card-shadow-hover: 0 4px 12px rgba(0,0,0,0.08), 0 8px 24px rgba(0,0,0,0.06);
+            --radius: 12px;
+            --radius-sm: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ── Navigation ── */
+        nav {
+            background: var(--bg-white);
+            border-bottom: 1px solid var(--border-light);
+            padding: 0 2rem;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-logo {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 800;
+            font-size: 1.25rem;
+            color: var(--text-dark);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        .nav-logo span {
+            color: var(--accent-blue);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-body);
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--accent-blue);
+        }
+
+        /* ── Main Content ── */
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem 1.5rem;
+        }
+
+        .register-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            max-width: 960px;
+            width: 100%;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        /* ── Left Side — Messaging ── */
+        .register-info {
+            padding-right: 1rem;
+        }
+
+        .register-info .label {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--accent-blue);
+            margin-bottom: 1rem;
+        }
+
+        .register-info h1 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 800;
+            font-size: 2.25rem;
+            line-height: 1.2;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .register-info h1 span {
+            color: var(--accent-blue);
+        }
+
+        .register-info p {
+            color: var(--text-body);
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        .benefits {
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .benefit-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--accent-green-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .benefit-icon svg {
+            width: 14px;
+            height: 14px;
+            stroke: var(--accent-green);
+            fill: none;
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .benefit-item span {
+            font-size: 0.95rem;
+            color: var(--text-body);
+        }
+
+        /* ── Right Side — Form Card ── */
+        .form-card {
+            background: var(--bg-white);
+            border-radius: var(--radius);
+            box-shadow: var(--card-shadow);
+            padding: 2.5rem;
+            border: 1px solid var(--border-light);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .form-card:hover {
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        .form-card h2 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 700;
+            font-size: 1.35rem;
+            margin-bottom: 0.35rem;
+            color: var(--text-dark);
+        }
+
+        .form-card .subtitle {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 1.75rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.15rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.4rem;
+        }
+
+        .form-group label .optional {
+            font-weight: 400;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.7rem 0.9rem;
+            border: 1.5px solid var(--border-light);
+            border-radius: var(--radius-sm);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            background: var(--bg-white);
+            transition: border-color 0.2s, box-shadow 0.2s;
+            outline: none;
+        }
+
+        .form-group input::placeholder {
+            color: #A0AEC0;
+        }
+
+        .form-group input:focus {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px var(--accent-blue-light);
+        }
+
+        .form-group input.error {
+            border-color: #E53E3E;
+            box-shadow: 0 0 0 3px #FED7D7;
+        }
+
+        .error-msg {
+            font-size: 0.78rem;
+            color: #E53E3E;
+            margin-top: 0.3rem;
+            display: none;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 0.8rem 1.5rem;
+            background: var(--accent-blue);
+            color: #fff;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+            margin-top: 0.5rem;
+        }
+
+        .submit-btn:hover {
+            background: var(--accent-blue-hover);
+        }
+
+        .submit-btn:active {
+            transform: scale(0.99);
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 1.25rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .form-footer a {
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* ── Success State ── */
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        .success-message .check-circle {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: var(--accent-green-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.25rem;
+        }
+
+        .success-message .check-circle svg {
+            width: 28px;
+            height: 28px;
+            stroke: var(--accent-green);
+            fill: none;
+            stroke-width: 2.5;
+        }
+
+        .success-message h3 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .success-message p {
+            color: var(--text-body);
+            font-size: 0.95rem;
+        }
+
+        /* ── Footer ── */
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-light);
+            background: var(--bg-white);
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .register-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .register-info {
+                padding-right: 0;
+                text-align: center;
+            }
+
+            .benefits {
+                align-items: center;
+            }
+
+            .register-info h1 {
+                font-size: 1.75rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                gap: 1.25rem;
+            }
+        }
+
+        /* ── Fade-in animation ── */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .register-info {
+            animation: fadeUp 0.6s ease-out;
+        }
+
+        .form-card {
+            animation: fadeUp 0.6s ease-out 0.15s both;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html" class="nav-logo">Autocomplete<span>Online</span></a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="register.html" class="active">Register</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <div class="register-container">
+
+            <!-- Left — Info -->
+            <div class="register-info">
+                <span class="label">Get Started</span>
+                <h1>Start Getting <span>Verified Clicks</span> Today</h1>
+                <p>Join businesses that appear directly in Google's autosuggest — and only pay when real visitors reach your website.</p>
+
+                <div class="benefits">
+                    <div class="benefit-item">
+                        <div class="benefit-icon">
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        </div>
+                        <span>Pay per verified click</span>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        </div>
+                        <span>No long-term contracts</span>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        </div>
+                        <span>Full transparency &amp; reporting</span>
+                    </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        </div>
+                        <span>100% verified traffic</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right — Form Card -->
+            <div class="form-card">
+                <div id="formContent">
+                    <h2>Create Your Account</h2>
+                    <p class="subtitle">Fill in your details to get started</p>
+
+                    <form id="registerForm" novalidate>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">First Name</label>
+                                <input type="text" id="firstName" name="firstName" placeholder="John" required>
+                                <div class="error-msg" id="firstNameError">First name is required</div>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" id="lastName" name="lastName" placeholder="Smith" required>
+                                <div class="error-msg" id="lastNameError">Last name is required</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" placeholder="john@company.com" required>
+                            <div class="error-msg" id="emailError">Please enter a valid email</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" placeholder="(555) 123-4567" required>
+                            <div class="error-msg" id="phoneError">Phone number is required</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="company">Company Name <span class="optional">(optional)</span></label>
+                            <input type="text" id="company" name="company" placeholder="Acme Inc.">
+                        </div>
+
+                        <button type="submit" class="submit-btn">Create Account</button>
+                    </form>
+
+                    <div class="form-footer">
+                        Already have an account? <a href="#">Sign in</a>
+                    </div>
+                </div>
+
+                <!-- Success State -->
+                <div class="success-message" id="successMessage">
+                    <div class="check-circle">
+                        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                    </div>
+                    <h3>You're All Set!</h3>
+                    <p>We've received your registration.<br>Our team will be in touch shortly.</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        &copy; 2026 AutoCompleteOnline &mdash; Powered by SearchPrograms. All rights reserved.
+    </footer>
+
+    <script>
+        const form = document.getElementById('registerForm');
+        const formContent = document.getElementById('formContent');
+        const successMessage = document.getElementById('successMessage');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            let valid = true;
+
+            // Reset errors
+            document.querySelectorAll('.error-msg').forEach(el => el.style.display = 'none');
+            document.querySelectorAll('input').forEach(el => el.classList.remove('error'));
+
+            // Validate required fields
+            const firstName = document.getElementById('firstName');
+            const lastName = document.getElementById('lastName');
+            const email = document.getElementById('email');
+            const phone = document.getElementById('phone');
+
+            if (!firstName.value.trim()) {
+                showError('firstName'); valid = false;
+            }
+            if (!lastName.value.trim()) {
+                showError('lastName'); valid = false;
+            }
+            if (!email.value.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+                showError('email'); valid = false;
+            }
+            if (!phone.value.trim()) {
+                showError('phone'); valid = false;
+            }
+
+            if (valid) {
+                // Collect form data
+                const data = {
+                    firstName: firstName.value.trim(),
+                    lastName: lastName.value.trim(),
+                    email: email.value.trim(),
+                    phone: phone.value.trim(),
+                    company: document.getElementById('company').value.trim()
+                };
+
+                console.log('Registration data:', data);
+
+                fetch('https://hooks.zapier.com/hooks/catch/26584306/uxsdfxv/', {
+                    method: 'POST',
+                    body: JSON.stringify(data)
+                });
+
+                // Show success
+                formContent.style.display = 'none';
+                successMessage.style.display = 'block';
+            }
+        });
+
+        function showError(fieldId) {
+            document.getElementById(fieldId).classList.add('error');
+            document.getElementById(fieldId + 'Error').style.display = 'block';
+        }
+
+        // Phone formatting
+        document.getElementById('phone').addEventListener('input', function(e) {
+            let val = e.target.value.replace(/\D/g, '');
+            if (val.length >= 6) {
+                val = '(' + val.slice(0,3) + ') ' + val.slice(3,6) + '-' + val.slice(6,10);
+            } else if (val.length >= 3) {
+                val = '(' + val.slice(0,3) + ') ' + val.slice(3);
+            }
+            e.target.value = val;
+        });
+    </script>
+
+</body>
+</html>
